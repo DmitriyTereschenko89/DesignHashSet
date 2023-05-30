@@ -27,8 +27,12 @@
 						return;
 					}
 					Node node = head;
-					while(node.next != null)
+					while (node.next != null)
 					{
+						if (node.val == val || node.next.val == val)
+						{
+							return;
+						}
 						node = node.next;
 					}
 					node.next = new Node(val);
@@ -46,7 +50,7 @@
 						return;
 					}
 					Node node = head;
-					while(node.next != null && node.next.val != val)
+					while (node.next != null && node.next.val != val)
 					{
 						node = node.next;
 					}
@@ -56,7 +60,7 @@
 				public bool Contains(int val)
 				{
 					Node node = head;
-					while(node != null)
+					while (node != null)
 					{
 						if (node.val == val)
 						{
@@ -77,24 +81,20 @@
 
 			public void Add(int key)
 			{
-				key %= linkedList.Length;
-				if (linkedList[key].Contains(key))
-				{
-					return;
-				}
-				linkedList[key].Add(key);
+				int index = key % linkedList.Length;
+				linkedList[index].Add(key);
 			}
 
 			public void Remove(int key)
 			{
-				key %= linkedList.Length;
-				linkedList[key].Remove(key);
+				int index = key % linkedList.Length;
+				linkedList[index].Remove(key);
 			}
 
 			public bool Contains(int key)
 			{
-				key %= linkedList.Length;
-				return linkedList[key].Contains(key);
+				int index = key % linkedList.Length;
+				return linkedList[index].Contains(key);
 			}
 		}
 		static void Main(string[] args)
@@ -108,6 +108,6 @@
 			Console.WriteLine(myHashSet.Contains(2)); // return True
 			myHashSet.Remove(2);   // set = [1]
 			Console.WriteLine(myHashSet.Contains(2)); // return False, (already removed)
-		}
+        }
 	}
 }
